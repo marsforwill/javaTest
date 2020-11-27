@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DP {
     // k个鸡蛋 n层楼 最小尝试次数
@@ -10,7 +12,6 @@ public class DP {
             Arrays.fill(dp[i],i);
         }
         dp[1][0] = 0;
-
 
         for (int i = 2; i <= N; i++) {
             for (int j = 2; j <= K ; j++) {
@@ -27,8 +28,47 @@ public class DP {
         return dp[N][K];
     }
 
+
+    public static   int superEggDrop2(int K, int N) {
+        return dp(K,N);
+    }
+    public static Map<Integer,Integer> memo = new HashMap<Integer, Integer>();
+    public static int dp(int k, int n) {
+        if (!memo.containsKey(n*100 + k)) {
+            int ans = n;
+            if (n==0) {
+                ans = 0;
+            } else if (k == 1) {
+                ans = n;
+            } else {
+//                for (int i = 1; i <= n ; i++) {
+//                    ans = Math.min(ans, Math.max(dp(k-1,i-1),dp(k,n-i)) + 1);
+//                }
+                //选择在第k层楼丢鸡蛋  根据此处可以进一步二分优化
+                //注意 dp(K - 1, i - 1) 和 dp(K, N - i) 这两个函数，其中 i 是从 1 到 N 单增的，如果我们固定 K 和 N，把这两个函数看做关于 i 的函数，前者随着 i 的增加应该也是单调递增的，而后者随着 i 的增加应该是单调递减的
+                int lo = 1;
+                int hi = n;
+                while (lo <= hi) {
+                    int mid = (lo+hi)/2;
+                    int broken = dp(k-1,mid-1);
+                    int notBroken = dp(k, n-mid);
+                    if (broken > notBroken) {
+                        hi = mid - 1;
+                        ans = Math.min(ans, broken+1);
+                    } else {
+                        lo = mid + 1;
+                        ans = Math.min(ans, notBroken + 1);
+                    }
+                }
+            }
+
+            memo.put(n*100+k, ans);
+        }
+        return memo.get(n*100+k);
+    }
+
     public static void main(String[] args) {
-        System.out.println(superEggDrop(8,2000));
+        System.out.println(superEggDrop2(8,2000));
     }
 
 
