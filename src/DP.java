@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DP {
     // k个鸡蛋 n层楼 最小尝试次数
@@ -67,8 +65,59 @@ public class DP {
         return memo.get(n*100+k);
     }
 
+
+    // 回文对
+    public static List<List<Integer>> palindromePairs(String[] words) {
+        List<String> revWord = new ArrayList<>();
+        Map<String,Integer> dict = new HashMap<>();
+        int n = words.length;
+        for (String word : words) {
+            revWord.add(new StringBuffer(word).reverse().toString());
+        }
+        for (int i = 0; i < n; i++) {
+            dict.put(revWord.get(i),i);
+        }
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        for (int i = 0; i < n; i++) {
+            String word = words[i];
+            int m = word.length();
+            if (m == 0) {
+                continue;
+            }
+            // todo detail
+            for (int j = 0; j < m; j++) {
+                if (isHuiwen(word,0,j)) {
+                    int rightId = dict.getOrDefault(word.substring(j, m-1), -1);
+                    if (rightId != -1 && rightId != i) {
+                        ans.add(Arrays.asList(rightId,i));
+                    }
+                }
+                if (isHuiwen(word,j,m-1)) {
+                    int leftId = dict.getOrDefault(word.substring(0, j), -1);
+                    if (leftId != -1 && leftId != i) {
+                        ans.add(Arrays.asList(i,leftId));
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isHuiwen(String s, int left, int right) {
+        int len = right - left + 1;
+        for (int i = 0; i < len / 2; i++) {
+            if (s.charAt(left + i) != s.charAt(right - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
     public static void main(String[] args) {
-        System.out.println(superEggDrop2(8,2000));
+//        System.out.println(superEggDrop2(8,2000));
+        System.out.println(palindromePairs(new String[]{"abcd","dcba","lls","s","sssll"}));
     }
 
 
