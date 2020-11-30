@@ -85,9 +85,9 @@ public class DP {
                 continue;
             }
             // todo detail
-            for (int j = 0; j < m; j++) {
-                if (isHuiwen(word,0,j)) {
-                    int rightId = dict.getOrDefault(word.substring(j, m-1), -1);
+            for (int j = 0; j <= m; j++) {
+                if (isHuiwen(word,0,j-1) && j != 0) {
+                    int rightId = dict.getOrDefault(word.substring(j, m), -1);
                     if (rightId != -1 && rightId != i) {
                         ans.add(Arrays.asList(rightId,i));
                     }
