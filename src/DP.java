@@ -68,8 +68,8 @@ public class DP {
 
     // 回文对
     public static List<List<Integer>> palindromePairs(String[] words) {
-        List<String> revWord = new ArrayList<>();
-        Map<String,Integer> dict = new HashMap<>();
+        List<String> revWord = new ArrayList<String>();
+        Map<String,Integer> dict = new HashMap<String,Integer>();
         int n = words.length;
         for (String word : words) {
             revWord.add(new StringBuffer(word).reverse().toString());
