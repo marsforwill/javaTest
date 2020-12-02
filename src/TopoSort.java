@@ -43,7 +43,7 @@ public class TopoSort {
         // 入度为0的节点入队
         for (int i = 0; i < 26; i++) {
             if (degree[i] == 0 ) {
-                ans = ans + (char)(degree[i] + 'a');
+                ans = ans + (char)(i + 'a');
                 queue.add(i);
             }
         }
@@ -54,7 +54,7 @@ public class TopoSort {
                 for (int to : graph.get(from)) {
                     if (degree[to] == 1) {
                         queue.add(to);
-                        ans = ans + (char)(degree[i] + 'a');
+                        ans = ans + (char)(i + 'a');
                     }
                     degree[to]--;
                 }
