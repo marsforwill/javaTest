@@ -21,14 +21,19 @@ public class TopoSort {
             }
         }
         for (int i = 0; i < len-1; i++) {
-            if (degree[words[i+1].charAt(i) - 'a'] == -1) {
-                cnt++;
-                degree[words[i+1].charAt(i) - 'a'] = 0;
+            for (int j = 0; j < words[i + 1].length(); j++) {
+                if (degree[words[i+1].charAt(j) - 'a'] == -1) {
+                    cnt++;
+                    degree[words[i+1].charAt(j) - 'a'] = 0;
+                }
             }
 
             String l = words[i];
             String r = words[i+1];
-            for (int j = 0;j<l.length() && j<r.length();j++) {
+            for (int j = 0;j<l.length();j++) {
+                if (j==r.length() && j< l.length()){
+                    return "";
+                }
                 if (l.charAt(j) != r.charAt(j)) {
                     //l[j] > r[j]
                     graph.get(l.charAt(j)-'a').add(r.charAt(j)-'a');
@@ -54,7 +59,7 @@ public class TopoSort {
                 for (int to : graph.get(from)) {
                     if (degree[to] == 1) {
                         queue.add(to);
-                        ans = ans + (char)(i + 'a');
+                        ans = ans + (char)(to + 'a');
                     }
                     degree[to]--;
                 }
@@ -65,10 +70,6 @@ public class TopoSort {
     }
 
     public static void main(String[] args) {
-        System.out.println(alienOrder(new String[]{"wrt",
-                    "wrf",
-                    "er",
-                    "ett",
-                    "rftt" }));
+        System.out.println(alienOrder(new String[]{"wrt", "wrtkj" }));
     }
 }
