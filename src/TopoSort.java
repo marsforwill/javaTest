@@ -56,6 +56,7 @@ public class TopoSort {
         while (!queue.isEmpty()) {
             for (int i = queue.size(); i > 0 ; i--) {
                 int from = queue.poll();
+                // graph里取出对应出度的节点 入度-1
                 for (int to : graph.get(from)) {
                     if (degree[to] == 1) {
                         queue.add(to);
