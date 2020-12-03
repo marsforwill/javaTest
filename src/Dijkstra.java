@@ -68,7 +68,44 @@ public class Dijkstra {
 
     }
 
+
+    public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        int[][] graph = new int[n][n];
+        for (int i = 0; i < flights.length; i++) {
+            graph[flights[i][0]][flights[i][1]] = flights[i][2];
+        }
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+                (info1,info2) -> info1[0] - info2[0]
+        );
+        Map<Integer,Integer> best = new HashMap<>();
+        // 起始节点放入
+        pq.offer(new int[]{0,0,src});// cost k node
+        while (!pq.isEmpty()){
+            int[] info = pq.poll();
+            int cost = info[0], k = info[1], node = info[2];
+            if (k>K+1 || cost > best.getOrDefault(k*1000+node,Integer.MAX_VALUE)) {
+                continue;
+            }
+            if (node == dst) {
+                return cost;
+            }
+            // 遍历当前节点的下一步的邻居
+            for (int nei = 0; nei < n; ++nei) if (graph[node][nei] > 0) {
+                int newcost = cost + graph[node][nei];
+                if (newcost < best.getOrDefault(nei+(k+1)*1000,Integer.MAX_VALUE)) {
+                    pq.offer(new int[]{newcost, k+1, nei});
+                    best.put(nei+(k+1)*1000,newcost);
+                }
+            }
+
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
-        System.out.println(networkDelayTime(new int[][]{{2,1,13},{2,3,1},{3,4,1},{4,1,1}},4,2));
+        //3, edges = [[0,1,100],[1,2,100],[0,2,500]]
+        //src = 0, dst = 2, k = 1
+        System.out.println(findCheapestPrice(3,new int[][]{{0,1,100},{1,2,100},{0,2,500}},0,2,1));
+//        System.out.println(networkDelayTime(new int[][]{{2,1,13},{2,3,1},{3,4,1},{4,1,1}},4,2));
     }
 }
