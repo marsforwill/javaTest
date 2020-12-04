@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Main {
@@ -73,6 +76,66 @@ public class Main {
             H[K]++;
         }
         return H;
+    }
+
+
+    interface Master {
+        public int guess(String word);
+    }
+    // 贪心猜单词 最大化 最小
+    public static void findSecretWord(String[] wordlist, Master master) {
+        int n = wordlist.length;
+        int[][] dis = new int[n+1][n+1];
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(i,0);
+            for (int j = i+1; j < n; j++) {
+                dis[j][i] = getNum(wordlist,i,j);
+                dis[i][j] = dis[j][i];
+            }
+        }
+        for (int t = 0; t < 10; t++) {
+            int max = Integer.MAX_VALUE;
+            int index = 0;
+            for (int i = 0; i < n; i++) {
+                if (map.containsKey(i)) {
+                    int[] num = new int[7];
+                    for (int j = 0; j < n; j++) {
+                        if (i != j && map.containsKey(j)) {
+                            num[dis[i][j]] += 1;
+                        }
+                    }
+                    // 取每个元素里面最大值距离
+                    int tmp = Arrays.stream(num).max().getAsInt();
+                    // 的最小
+                    if (tmp < max) {
+                        max = tmp;
+                        index = i;
+                    }
+                }
+            }
+            // guess
+            int k = master.guess(wordlist[index]);
+            map.remove(index);
+            for (int j = 0; j < n; j++) {
+                if (j==index) {
+                    continue;
+                }
+                if (map.containsKey(j) && dis[index][j] != k) {
+                    map.remove(j);
+                }
+            }
+        }
+    }
+
+    public static int getNum(String[] wordlist, int i, int j) {
+        int count = 0;
+        for (int k = 0; k < wordlist[i].length(); k++) {
+            if (wordlist[i].charAt(k) == wordlist[j].charAt(k)) {
+                count++;
+            }
+        }
+        return count;
     }
 
 
