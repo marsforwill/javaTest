@@ -3,10 +3,12 @@ import java.util.*;
 public class TopoSort {
 
 
+    // 269 火星词典 拓扑排序
     public static String alienOrder(String[] words) {
         int len = words.length;
         // 节点入度
         int[] degree = new int[26];
+        // 存26个字母节点的指向图
         List<List<Integer>> graph = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
             graph.add(new ArrayList<>());
@@ -31,9 +33,10 @@ public class TopoSort {
             String l = words[i];
             String r = words[i+1];
             for (int j = 0;j<l.length();j++) {
-                if (j==r.length() && j< l.length()){
+                if (j == r.length()){
                     return "";
                 }
+                // 把相邻两个单词第一个不同的字母偏序存入有向图
                 if (l.charAt(j) != r.charAt(j)) {
                     //l[j] > r[j]
                     graph.get(l.charAt(j)-'a').add(r.charAt(j)-'a');

@@ -25,11 +25,15 @@ public class Main {
         return f;
     }
 
+    // 755. 倒水
     // 理解题意的意思是： 是包括大于等于来落的，但是最后落下的一定是 尽量低 ，再次是尽量靠近落点 的题意 就很奇葩
+    //在 V 个单位的水落在索引 K 处以后
     public static int[] pourWater(int[] heights, int V, int K) {
         for (int i = 0; i < V; i++) {
+            // 往左边落 小于等于的时候就可以往左
             if (K-1 >= 0 && heights[K-1] <= heights[K]) {
                 int temp = K,j=K;
+                // 小于等于的时候往左找 但是小于的时候才会落
                 while (j-1 >= 0 && heights[j-1] <= heights[j]) {
                     if (heights[j-1] < heights[j]) {
                         temp=j-1;
@@ -41,8 +45,10 @@ public class Main {
                     continue;
                 }
             }
+            // 往右边落 小于等于的时候就可以往右
             if (K+1 < heights.length && heights[K+1] <= heights[K]) {
                 int temp = K, j=K;
+                // 小于等于的时候往右找 但是小于的时候才会落
                 while (j+1 < heights.length && heights[j+1] <= heights[j]) {
                     if (heights[j+1] < heights[j]) {
                         temp=j+1;
@@ -60,23 +66,6 @@ public class Main {
         return heights;
     }
 
-    public static int[] pourWater2(int[] H, int V, int K) {
-        while (V-- > 0) droplet: {
-            for (int d = -1; d <= 1; d += 2) {
-                int i = K, best = K;
-                while (0 <= i+d && i+d < H.length && H[i+d] <= H[i]) {
-                    if (H[i+d] < H[i]) best = i + d;
-                    i += d;
-                }
-                if (H[best] < H[K]) {
-                    H[best]++;
-                    break droplet;
-                }
-            }
-            H[K]++;
-        }
-        return H;
-    }
 
 
     interface Master {
@@ -142,6 +131,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("hello");
 //        System.out.println(mostCompetitive(new int[]{71,18,52,29,55,73,24,42,66,8,80,2}, 3));
-        System.out.println(pourWater2(new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1}, 5 ,5));//[1,2,3,4,3,4,3,3,3,4,3,2,1]
+        System.out.println(pourWater(new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1}, 5 ,5));//[1,2,3,4,3,4,3,3,3,4,3,2,1]
     }
 }
