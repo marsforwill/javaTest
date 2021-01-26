@@ -66,7 +66,8 @@ public class DP {
     }
 
 
-    // 回文对
+    // 336.回文对  [abcd|efe)dcba]
+    //给定一组 互不相同 的单词， 找出所有不同 的索引对(i, j)，使得列表中的两个单词， words[i] + words[j] ，可拼接成回文串。
     public static List<List<Integer>> palindromePairs(String[] words) {
         List<String> revWord = new ArrayList<String>();
         Map<String,Integer> dict = new HashMap<String,Integer>();
@@ -74,6 +75,7 @@ public class DP {
         for (String word : words) {
             revWord.add(new StringBuffer(word).reverse().toString());
         }
+        // 翻转后的字典
         for (int i = 0; i < n; i++) {
             dict.put(revWord.get(i),i);
         }
@@ -84,14 +86,16 @@ public class DP {
             if (m == 0) {
                 continue;
             }
-            // todo detail
+            //对当前遍历的每一个word
             for (int j = 0; j <= m; j++) {
+                // 如果左边[0:j-1]是回文
                 if (isHuiwen(word,0,j-1) && j != 0) {
                     int rightId = dict.getOrDefault(word.substring(j, m), -1);
                     if (rightId != -1 && rightId != i) {
                         ans.add(Arrays.asList(rightId,i));
                     }
                 }
+                // 如果右边【j:m-1】是回文
                 if (isHuiwen(word,j,m-1)) {
                     int leftId = dict.getOrDefault(word.substring(0, j), -1);
                     if (leftId != -1 && leftId != i) {
