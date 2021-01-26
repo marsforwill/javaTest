@@ -69,6 +69,7 @@ public class Dijkstra {
     }
 
 
+    //787. K 站中转内最便宜的航班
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
         int[][] graph = new int[n][n];
         for (int i = 0; i < flights.length; i++) {
@@ -77,7 +78,7 @@ public class Dijkstra {
         PriorityQueue<int[]> pq = new PriorityQueue<>(
                 (info1,info2) -> info1[0] - info2[0]
         );
-        Map<Integer,Integer> best = new HashMap<>();
+        Map<Integer,Integer> best = new HashMap<>(); // node+k*1000, cost
         // 起始节点放入
         pq.offer(new int[]{0,0,src});// cost k node
         while (!pq.isEmpty()){
