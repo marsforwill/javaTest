@@ -1,11 +1,3 @@
-/*******************************************************
- * Copyright (C) 2020/11/29 iQIYI.COM - All Rights Reserved
- * Unauthorized copy of this file, via any medium is strictly prohibited.
- * Proprietary and Confidential.
- * Author(s):
- * liushimin <liushimin@qiyi.com>
- *******************************************************/
-
 import java.util.*;
 
 /*******************************************************

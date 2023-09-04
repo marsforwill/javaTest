@@ -1,5 +1,3 @@
-import java.util.Vector;
-
 public class Kmp {
 
     public static int[] getNext(String pattern) {
