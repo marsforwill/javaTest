@@ -130,6 +130,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("hello");
+        System.out.println("test online editor");
 //        System.out.println(mostCompetitive(new int[]{71,18,52,29,55,73,24,42,66,8,80,2}, 3));
         System.out.println(pourWater(new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1}, 5 ,5));//[1,2,3,4,3,4,3,3,3,4,3,2,1]
     }
