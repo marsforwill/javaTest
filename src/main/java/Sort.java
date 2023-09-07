@@ -83,7 +83,7 @@ public class Sort {
 
     public static int partition(int[] arr, int left, int right) {
         int i = left;
-        // 拿最后一个元素作为基准比较，i j 快慢指针从左往右，通过j找出比基准小的元素交换到i前面
+        // 拿最后一个元素作为基准比较，i j 快慢指针从左往右，通过j找出比基准小的元素交换到i前面,j遍历全部后保证i前面都是小的
         for (int j = i; j < right; j++) {
             if (arr[j] < arr[right]) {
                 swap(arr, i, j);
