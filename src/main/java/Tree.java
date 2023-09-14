@@ -1,5 +1,7 @@
 import java.util.Stack;
 
+// 非递归就是用栈来模拟
+// 可递归的话就是考虑递归出口和抽出重复操作
 public class Tree {
     public static class TreeNode {
         public int value;
@@ -33,18 +35,14 @@ public class Tree {
         }
     }
 
-    // 非递归后序遍历：左-右-根
+    // 非递归后序遍历：左-右-根 ：
     public static void postorderTraversal(TreeNode root) {
-        // 如果根节点为空，直接返回
         if (root == null)
             return;
-        // 创建一个栈用来存储节点
         Stack<TreeNode> stack = new Stack<>();
         // 创建一个指针指向上一次访问的节点，初始为null
         TreeNode prev = null;
-        // 把根节点压入栈
         stack.push(root);
-        // 循环条件：栈不为空
         while (!stack.isEmpty()) {
             // 查看（但不弹出）栈顶节点
             TreeNode node = stack.peek();
@@ -52,11 +50,10 @@ public class Tree {
             // 那么就可以访问当前节点，并弹出它，并更新上一次访问的节点为当前节点
             if ((node.left == null && node.right == null) ||
                     (prev != null && (prev == node.left || prev == node.right))) {
-                System.out.println(node.value); // 或者 result.add(node.val);
+                System.out.println(node.value);
                 stack.pop();
                 prev = node;
             } else {
-                // 否则，按照右-左-根的顺序压入子节点（如果有的话）
                 if (node.right != null) {
                     stack.push(node.right);
                 }
@@ -87,6 +84,8 @@ public class Tree {
             }
         }
     }
+
+    // todo : linkedList <> 中序遍历 <> BST // 互相转化
 
     public static void main(String[] args) {
         System.out.println("test tree");
