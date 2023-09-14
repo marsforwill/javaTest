@@ -33,6 +33,40 @@ public class Tree {
         }
     }
 
+    // 非递归后序遍历：左-右-根
+    public static void postorderTraversal(TreeNode root) {
+        // 如果根节点为空，直接返回
+        if (root == null)
+            return;
+        // 创建一个栈用来存储节点
+        Stack<TreeNode> stack = new Stack<>();
+        // 创建一个指针指向上一次访问的节点，初始为null
+        TreeNode prev = null;
+        // 把根节点压入栈
+        stack.push(root);
+        // 循环条件：栈不为空
+        while (!stack.isEmpty()) {
+            // 查看（但不弹出）栈顶节点
+            TreeNode node = stack.peek();
+            // 如果当前节点没有左右孩子，或者上一次访问的节点是当前节点的左右孩子之一，
+            // 那么就可以访问当前节点，并弹出它，并更新上一次访问的节点为当前节点
+            if ((node.left == null && node.right == null) ||
+                    (prev != null && (prev == node.left || prev == node.right))) {
+                System.out.println(node.value); // 或者 result.add(node.val);
+                stack.pop();
+                prev = node;
+            } else {
+                // 否则，按照右-左-根的顺序压入子节点（如果有的话）
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
+            }
+        }
+    }
+
     // 非递归中序遍历 左-根-右
     public static void inorderTraversal(TreeNode root) {
         if (root == null) {
@@ -62,6 +96,6 @@ public class Tree {
         TreeNode tree = new TreeNode(2, new TreeNode(3, new TreeNode(4, null, null), new TreeNode(5, null, null)),
                 new TreeNode(1, null, null));
         // preorderTraversal(tree);
-        inorderTraversal(tree);
+        postorderTraversal(tree);
     }
 }
