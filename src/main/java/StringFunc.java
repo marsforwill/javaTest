@@ -28,6 +28,39 @@ public class StringFunc {
        System.out.println(sb);
     }
 
+    // https://www.hackerrank.com/challenges/sherlock-and-valid-string/copy-from/364735865
+    // char character
+    public static String isValid(String s) {
+    // Write your code here
+        char[] sc = s.toCharArray();
+        int[] f = new int[26];
+        for(char c : sc){
+            f[c-'a']++;
+        }
+        for (int i = 0; i < f.length; i++) {
+            System.out.print(f[i]);
+        }
+        if(sc.length == 1){
+            return ("YES");
+        }
+        // iter all the 26 char, to see how many difference char need to delete for keep same as char[i]
+        for(int i = 0;i < 26;i++){
+            long need = 0;
+            for(int j = 0;j < 26;j++){
+                if(f[i] < f[j]){
+                    need += f[j]-f[i];
+                }else if(f[j] < f[i]){
+                    need += f[j];
+                }
+                System.out.println(need);
+            }
+            if(need <= 1){
+               return "YES";
+            }
+        }
+        return "NO";
+    }
+
 
     // KMP 
     public static int[] getNext(String pattern) {

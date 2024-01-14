@@ -1,5 +1,5 @@
 import java.util.Stack;
-
+// TreeSet
 // 非递归就是用栈来模拟
 // 可递归的话就是考虑递归出口和抽出重复操作
 public class Tree {
@@ -84,6 +84,25 @@ public class Tree {
             }
         }
     }
+
+    // public static void treeSetTest(String[] args) {
+    //    Scanner sc = new Scanner(System.in);
+    //    int n = Integer.parseInt(sc.nextLine().trim());
+    //    TreeSet<String> set = new TreeSet<>();
+    //    for (int i = 0; i < n; i++) {
+    //        String line = sc.nextLine();
+    //        if (line.startsWith("add ")){
+    //            set.add(line.substring(4));
+    //        } else {
+    //             int count = 0;
+    //             SortedSet<String> tail = set.tailSet(line.substring(5));
+    //             Iterator iter = tail.iterator();
+    //             while(iter.hasNext() && ((String)iter.next())
+    //                     .startsWith(line.substring(5))) count++;
+    //             System.out.println(count);
+    //        }
+    //    }
+    // }
 
     // todo : linkedList <> 中序遍历 <> BST // 互相转化
 

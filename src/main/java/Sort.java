@@ -1,5 +1,6 @@
 import java.util.*;
 
+// Arrays.sort() , Collections.sort()
 public class Sort {
 
     // 269 火星词典 拓扑排序
@@ -98,6 +99,36 @@ public class Sort {
         int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
+    }
+
+    // https://www.hackerrank.com/challenges/hackerland-radio-transmitters/copy-from/364336352
+    public static int hackerlandRadioTransmitters(List<Integer> x, int k) {
+    // Write your code here
+        Collections.sort(x);
+        int n = x.size();
+        int count = 0;
+        boolean[] isTran = new boolean[n];
+        for (int i = 0; i < x.size(); ) {
+            int j = i;
+            for (j = i; j < n; j++) {
+                if (x.get(j) - x.get(i) > k){
+                    break;
+                }               
+            }
+            j--;
+            // System.out.println(j);
+            count++;
+            int k2 = 0;
+            for (k2 = j; k2 < n; k2++){
+                if(x.get(k2) - x.get(j) > k){
+                    break;
+                }
+            }       
+            i = k2;
+            // System.out.println(i + "---");
+        }
+        System.out.println(count);
+        return count;
     }
 
     public static void main(String[] args) {

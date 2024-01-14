@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.List;
 
 public class Main {
 
@@ -127,25 +128,61 @@ public class Main {
         return count;
     }
 
-    void decode(String s, Node root) {
-        StringBuilder sb = new StringBuilder();
-        Node cur = root;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == '1'){
-                    cur = cur.right;
-                }else if (c == '0'){
-                    cur = cur.left;
-                }
-                
-            if (cur.left == null && cur.right == null){
-                // ans = ans + cur.data;
-                sb.append(cur.data);
-                cur = root;
-            }
-            // System.out.println(sb + "---" + c + "---" + i);
+    // https://www.hackerrank.com/challenges/ctci-ransom-note/copy-from/363669434
+    public static void checkMagazine(List<String> magazine, List<String> note) {
+    // Write your code here
+        Map<String, Integer> strMap = new HashMap<>();
+        for (String str : magazine) {
+            strMap.put(str, strMap.getOrDefault(str, 0) + 1);
         }
-       System.out.println(sb);
+        for (String str : note) {
+            if(!strMap.containsKey(str)){
+                System.out.println("No");
+                return;
+            }
+            Integer count = strMap.getOrDefault(str, 0);
+            if (count > 1){
+                strMap.put(str, count-1);
+            }else {
+                strMap.remove(str);
+            }
+        }
+        System.out.println("Yes");
+    }
+
+    // https://www.hackerrank.com/challenges/magic-square-forming/submissions/code/363999920
+    public static int formingMagicSquare(List<List<Integer>> s) {
+    // Write your code here
+        int[][][] ans ={
+            {{8,3,4},{1,5,9},{6,7,2}},
+            {{6,7,2},{1,5,9},{8,3,4}},
+            {{4,3,8},{9,5,1},{2,7,6}},
+            {{2,7,6},{9,5,1},{4,3,8}},
+            
+            {{8,1,6},{3,5,7},{4,9,2}},
+            {{6,1,8},{7,5,3},{2,9,4}},
+            {{4,9,2},{3,5,7},{8,1,6}},
+            {{2,9,4},{7,5,3},{6,1,8}}
+        };
+        int min = 1000;
+        for (int i = 0; i < 8; i++) {
+            int count = 0;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    if (ans[i][j][k] > s.get(j).get(k)){
+                        count += Math.abs(ans[i][j][k] - s.get(j).get(k));
+                    } else {
+                        count += Math.abs(s.get(j).get(k) - ans[i][j][k]);
+                    }
+                    //System.out.println(count);
+                }
+            }
+            System.out.println(count);
+            if (count < min){
+                min = count;
+            }
+        }
+        return min;
     }
 
 
