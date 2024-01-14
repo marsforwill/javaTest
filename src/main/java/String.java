@@ -1,5 +1,35 @@
-public class Kmp {
+public class String {
 
+    // class Node {
+    //     public  int frequency; // the frequency of this tree
+    // 	public  char data;
+    // 	public  Node left, right;
+    // }
+
+    // // use append to add char with StringBuilder
+    // void decode(String s, Node root) {
+    //     StringBuilder sb = new StringBuilder();
+    //     Node cur = root;
+    //     for (int i = 0; i < s.length(); i++) {
+    //         char c = s.charAt(i);
+    //         if (c == '1'){
+    //                 cur = cur.right;
+    //             }else if (c == '0'){
+    //                 cur = cur.left;
+    //             }
+                
+    //         if (cur.left == null && cur.right == null){
+    //             // ans = ans + cur.data;
+    //             sb.append(cur.data);
+    //             cur = root;
+    //         }
+    //         // System.out.println(sb + "---" + c + "---" + i);
+    //     }
+    //    System.out.println(sb);
+    // }
+
+
+    // KMP 
     public static int[] getNext(String pattern) {
         int n = pattern.length();
         int[] next = new int[n];
