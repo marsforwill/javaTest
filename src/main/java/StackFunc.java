@@ -1,6 +1,5 @@
 import java.util.Stack;
 import java.util.Scanner;
-import java.io.*;
 
 // new Stack<>(); .push .pop .peek
 public class StackFunc {
@@ -68,16 +67,16 @@ public class StackFunc {
 
     public static void main(String[] args) {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
-        Scanner sc = new Scanner(System.in);
-        try{
-          int numTest = Integer.parseInt(sc.nextLine());
-          for(int i = 0; i < numTest; i++){
-           String ans = isBalanced(sc.nextLine()); 
-           System.out.println(ans);
-          }
-        } catch(Exception e){
-            System.out.println("Invalid Input");
-        }
+        // Scanner sc = new Scanner(System.in);
+        // try{
+        //   int numTest = Integer.parseInt(sc.nextLine());
+        //   for(int i = 0; i < numTest; i++){
+        //    String ans = isBalanced(sc.nextLine()); 
+        //    System.out.println(ans);
+        //   }
+        // } catch(Exception e){
+        //     System.out.println("Invalid Input");
+        // }
 
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
     }
