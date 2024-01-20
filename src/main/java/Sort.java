@@ -145,10 +145,8 @@ public class Sort {
         items.add(new Item(5, 8));
         Collections.sort(items);
         for (int i = 0; i < items.size(); i++) {
-            System.out.println(items.get(i).start);
+            System.out.println(items.get(i).start); // 2,3,5
         }
-        System.out.println(items);
-
     }
 }
 
