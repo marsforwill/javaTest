@@ -1,5 +1,22 @@
 import java.util.*;
 
+class Item implements Comparable<Item> {
+    int start;
+    int end;
+
+    Item(int s, int e) {
+        this.start = s;
+        this.end = e;
+    }
+
+    public int compareTo(Item other) {
+        if (this.start == other.start) {
+            return this.end > other.end ? 1 : -1;
+        }
+        return this.start > other.start ? 1 : -1;
+    }
+}
+
 // Arrays.sort() , Collections.sort()
 public class Sort {
 
@@ -103,27 +120,27 @@ public class Sort {
 
     // https://www.hackerrank.com/challenges/hackerland-radio-transmitters/copy-from/364336352
     public static int hackerlandRadioTransmitters(List<Integer> x, int k) {
-    // Write your code here
+        // Write your code here
         Collections.sort(x);
         int n = x.size();
         int count = 0;
         boolean[] isTran = new boolean[n];
-        for (int i = 0; i < x.size(); ) {
+        for (int i = 0; i < x.size();) {
             int j = i;
             for (j = i; j < n; j++) {
-                if (x.get(j) - x.get(i) > k){
+                if (x.get(j) - x.get(i) > k) {
                     break;
-                }               
+                }
             }
             j--;
             // System.out.println(j);
             count++;
             int k2 = 0;
-            for (k2 = j; k2 < n; k2++){
-                if(x.get(k2) - x.get(j) > k){
+            for (k2 = j; k2 < n; k2++) {
+                if (x.get(k2) - x.get(j) > k) {
                     break;
                 }
-            }       
+            }
             i = k2;
             // System.out.println(i + "---");
         }
@@ -138,5 +155,13 @@ public class Sort {
         for (int i : nums) {
             System.out.println(i);
         }
+
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(3, 6));
+        items.add(new Item(2, 7));
+        items.add(new Item(5, 8));
+        Collections.sort(items);
+        System.out.println(items);
+
     }
 }
