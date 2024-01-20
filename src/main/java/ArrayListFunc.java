@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ArrayList {
+public class ArrayListFunc {
     // new ArrayList<>() / .add / .get
 
     public static List<Integer> matchingStrings(List<String> stringList, List<String> queries) {

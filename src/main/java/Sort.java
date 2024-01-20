@@ -1,22 +1,5 @@
 import java.util.*;
 
-class Item implements Comparable<Item> {
-    int start;
-    int end;
-
-    Item(int s, int e) {
-        this.start = s;
-        this.end = e;
-    }
-
-    public int compareTo(Item other) {
-        if (this.start == other.start) {
-            return this.end > other.end ? 1 : -1;
-        }
-        return this.start > other.start ? 1 : -1;
-    }
-}
-
 // Arrays.sort() , Collections.sort()
 public class Sort {
 
@@ -156,12 +139,33 @@ public class Sort {
             System.out.println(i);
         }
 
-        List<Item> items = new ArrayList<>();
+        List<Item> items = new ArrayList<Item>();
         items.add(new Item(3, 6));
         items.add(new Item(2, 7));
         items.add(new Item(5, 8));
         Collections.sort(items);
+        for (int i = 0; i < items.size(); i++) {
+            System.out.println(items.get(i).start);
+        }
         System.out.println(items);
 
+    }
+}
+
+// amazon OA 2, without enough time
+class Item implements Comparable<Item> {
+    int start;
+    int end;
+
+    Item(int s, int e) {
+        this.start = s;
+        this.end = e;
+    }
+
+    public int compareTo(Item other) {
+        if (this.start == other.start) {
+            return this.end > other.end ? 1 : -1;
+        }
+        return this.start > other.start ? 1 : -1;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class LinkList {
     // common skill: dummy head, double pointer
 
