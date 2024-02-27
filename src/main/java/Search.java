@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Search {
 
@@ -40,6 +42,35 @@ public class Search {
             ans.add(max);
         }
         return ans;
+    }
+
+    // BFS 模板化
+    public void BFS(int start){
+        // 标记访问 队列
+        boolean[] visited = new boolean[10];
+        Queue<Integer> q = new LinkedList<>(); 
+        
+        // start point 初始化
+        visited[start] = true;
+        q.add(start);
+
+        // 当队列非空循环
+        while(!q.isEmpty()){
+            // 取出当前头节点
+            int current = q.poll();
+            // process current
+            System.out.println(current);
+            // 处理循环下层节点
+            for (int i = 1; i < 4; i++) {
+                int next = current + i;
+                // 如未标记 则进入队列
+                if (visited[next] == false){
+                    visited[next] = true;
+                    q.add(next);
+                }
+            }
+        }
+
     }
 
     public static void main(String[] args){
