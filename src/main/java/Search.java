@@ -70,11 +70,31 @@ public class Search {
                 }
             }
         }
+    }
 
+    // 二分搜索模板 when search the sorted item
+    public static int binarySearch(int[] nums, int target){
+        int low = 0;
+        int high = nums.length - 1;
+        // <= 二分循环判断
+        while (low <= high) {
+            int mid = low + (high - low)/2;
+            // check mid
+            if (nums[mid] == target){
+                return mid;
+            } else if (nums[mid] > target){
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
     }
 
     public static void main(String[] args){
         System.out.println("hello");
-        System.out.println(largestValues(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
+        int[] arr = {1, 2, 3, 4, 5};
+        System.out.println(binarySearch(arr, 3));
+        // System.out.println(largestValues(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
     }
 }
