@@ -104,28 +104,6 @@ public class StringFunc {
         return -1;
     }
 
-    // 字符串全排列
-    public static Set<String> f(String code){
-        int length = code.length();
-        if (length <= 1){
-            Set<String> s = new HashSet<String>();
-            s.add(code);
-            return s;
-        }
- 
-        Set<String> answer = new HashSet<String>();
-        for(int i = 0; i < length; i++) {
-            String rest = code.subSequence(0, i).toString() + code.subSequence(i+1, length);
-            Set<String> temp = f(rest);
-            for (String str : temp) {
-                answer.add(code.charAt(i) + str);
-            }
-        }
-        return answer;
-    }
-
-
-
     public static void main(String[] args) {
 //        System.out.println("atty");
 //        int[] ans = getNext("ababc");
@@ -133,6 +111,5 @@ public class StringFunc {
 //            System.out.print(ans[i] + " ");
 //        }
         System.out.println(strStr("hello","ll"));
-        System.out.println(f("cat"));
     }
 }
