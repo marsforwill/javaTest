@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -185,6 +186,54 @@ public class Main {
         return min;
     }
 
+    // leetcode competetion
+    public static int minimumOperationsToWriteY(int[][] grid) {
+        Map<Integer, Integer> yMap = new HashMap<>();
+        yMap.put(0, 0);
+        yMap.put(1, 0);
+        yMap.put(2, 0);
+
+        Map<Integer, Integer> other = new HashMap<>();
+        other.put(0, 0);
+        other.put(1, 0);
+        other.put(2, 0);
+        int n = grid.length;
+        int center = n/2;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if ((i == j && i <= center) || (i == center && j >= center) || (i+j == n-1 && i <= center)){
+                    int value = grid[i][j];
+                    yMap.put(value, yMap.getOrDefault(value, 0) + 1);
+                }
+                else {
+                    int value = grid[i][j];
+                    other.put(value, other.getOrDefault(value, 0) + 1);
+                }
+            }
+        }
+
+        int ans = 49 * 49;
+        for (Integer i : yMap.keySet()) {
+            for (Integer j : other.keySet()) {
+                if (i != j){
+                    int ci = 0;
+                    for (Integer i2 : yMap.keySet()) {
+                        if (i2 != i){
+                            ci += yMap.get(i2);
+                        }
+                    }
+                    int co = 0;
+                    for (Integer j2 : other.keySet()){
+                        if (j2 != j) {
+                            co += other.get(j2);
+                        }
+                    }
+                    ans = Math.min(ans, ci + co);
+                }
+            }
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         System.out.println("hello");
