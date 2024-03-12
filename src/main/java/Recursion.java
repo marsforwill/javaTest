@@ -47,7 +47,48 @@ public class Recursion {
         return answer;
     }
 
-    public static void main(String[] args){
+    // 用回溯的算法求字符串的全排列, 包含重复字符
+    public static void backtracked(String str, int start, String now, List<String> ans){
+        // for output
+        if (start == str.length()){
+            ans.add(now);
+            return; 
+        }
 
+        // iterate for fill next match one
+        for (int i = start; i < str.length(); i++) {
+            // fill
+            now = now + str.charAt(i);
+            // do search 
+            backtracked(str, start + 1, now, ans);
+            // unfill
+            now = now.substring(0, now.length() - 1);
+        }
+    }
+
+    public static void backtrack(char[] arr, int start, List<String> permutations) {
+        if (start == arr.length - 1) {
+            permutations.add(new String(arr));
+            return;
+        }
+
+        for (int i = start; i < arr.length; i++) {
+            swap(arr, start, i); // Swap characters
+            backtrack(arr, start + 1, permutations); // Recurse
+            swap(arr, start, i); // Backtrack (restore original order)
+        }
+    }
+
+    public static void swap(char[] arr, int i, int j) {
+        char temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args){
+        List<String> ans = new ArrayList<>();
+        String str = "ccat";
+        backtracked("cat", 0, "", ans);
+        System.out.println(ans.toString());
     }
 }
