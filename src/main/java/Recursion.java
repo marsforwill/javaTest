@@ -48,34 +48,22 @@ public class Recursion {
     }
 
     // 用回溯的算法求字符串的全排列, 包含重复字符
-    public static void backtracked(String str, int start, String now, List<String> ans){
+    public static void backtracked(char[] str, int start, List<String> ans){
         // for output
-        if (start == str.length()){
-            ans.add(now);
+        if (start == str.length - 1){
+            ans.add(new String(str));
             return; 
         }
-
+        System.out.println(start + "   " + new String(str));
         // iterate for fill next match one
-        for (int i = start; i < str.length(); i++) {
-            // fill
-            now = now + str.charAt(i);
+        // f(cat, 0) = f([c]at,1) + f([a]ct, 1) + f([t]ac, 1)
+        for (int i = start; i < str.length; i++) {
+            // swap
+            swap(str, i, start);
             // do search 
-            backtracked(str, start + 1, now, ans);
-            // unfill
-            now = now.substring(0, now.length() - 1);
-        }
-    }
-
-    public static void backtrack(char[] arr, int start, List<String> permutations) {
-        if (start == arr.length - 1) {
-            permutations.add(new String(arr));
-            return;
-        }
-
-        for (int i = start; i < arr.length; i++) {
-            swap(arr, start, i); // Swap characters
-            backtrack(arr, start + 1, permutations); // Recurse
-            swap(arr, start, i); // Backtrack (restore original order)
+            backtracked(str, start + 1, ans);
+            // unswap
+            swap(str, i, start);
         }
     }
 
@@ -87,8 +75,8 @@ public class Recursion {
 
     public static void main(String[] args){
         List<String> ans = new ArrayList<>();
-        String str = "ccat";
-        backtracked("cat", 0, "", ans);
+        String str = "cat";
+        backtracked(str.toCharArray(), 0, ans);
         System.out.println(ans.toString());
     }
 }
