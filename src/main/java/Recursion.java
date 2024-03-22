@@ -58,6 +58,7 @@ public class Recursion {
         // iterate for fill next match one
         // f(cat, 0) = f([c]at,1) + f([a]ct, 1) + f([t]ac, 1)
         for (int i = start; i < str.length; i++) {
+            // 非重复的优化：排序加上额外的判断 if (visited[i] || (i > 0 && arr[i] == arr[i - 1] && !visited[i - 1])) {
             // swap
             swap(str, i, start);
             // do search 
