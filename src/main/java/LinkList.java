@@ -51,6 +51,30 @@ public class LinkList {
         return ans;
     }
 
+    // 快慢指针检测链表是否有环，数学可证有环必会追及相遇（每次快比曼多走1 总会追上），且相遇时环外距离a=剩下距离c
+    public Node detectCycle(Node head) {
+        Node quick = head;
+        Node slow = head;
+        while(slow != null && quick != null){
+            if (quick.next == null){
+                return null;
+            }
+
+            slow = slow.next;
+            quick = quick.next.next;
+            if (slow == quick){
+                Node temp1 = head;
+                Node temp2 = slow;
+                while (temp1 != temp2){
+                    temp1 = temp1.next;
+                    temp2 = temp2.next;
+                }
+                return temp1;
+            }
+        }  
+        return null; 
+    }
+
     public static void main(String[] args) {
         Node head = new Node(1, new Node(2, new Node(3, null)));
         Node ans = reverseList(head);
