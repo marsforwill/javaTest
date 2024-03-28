@@ -2,6 +2,54 @@ import java.util.*;
 
 public class Recursion {
 
+    public static List<int[]> ans = new ArrayList<>();
+
+    // 多皇后 n queen
+    public List<List<String>> solveNQueens(int n) {
+        int[] position = new int[n];
+        ans = new ArrayList<>();
+        solve(0, position, n);
+        List<List<String>> output = new ArrayList<>();
+        for(int[] one : ans){
+            List<String> solution = new ArrayList<>();
+            for(int i=0; i<n; i++){
+                char[] row = new char[n];
+                Arrays.fill(row, '.');
+                row[one[i]] = 'Q';
+                solution.add(new String(row));
+            }
+            output.add(solution);
+        }
+        return output;
+    }
+
+    public static void solve(int k,int[] position,  int n){
+			if (k == n){
+                int[] copy = Arrays.copyOf(position, position.length);
+                ans.add(copy);
+				return;
+			}
+
+			for (int i = 0; i < n; i++){
+				if (!conflict(k, position, i)){
+					position[k] = i;
+					solve(k+1, position, n);
+
+				}
+			}
+	}
+
+    public static boolean conflict(int row, int[] position, int i){
+        for (int j = 0; j < row; j++) {
+            int pos = position[j];
+            // (row, i) (j, pos)
+            if (pos == i || row+i == j+pos || row-j == i-pos){
+                return true;
+            }      
+        }
+        return false;
+    }
+
      // https://www.hackerrank.com/challenges/the-power-sum/problem?isFullScreen=true 
     public static int powerSum(int X, int N) {
     // Write your code here
