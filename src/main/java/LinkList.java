@@ -2,6 +2,7 @@ import java.util.*;
 
 public class LinkList {
     // common skill: dummy head, double pointer
+    // java util: new LinkedList<>(); .add .remove
 
     public static class Node {
         public Node next;
@@ -76,13 +77,18 @@ public class LinkList {
     }
 
     public static void main(String[] args) {
-        Node head = new Node(1, new Node(2, new Node(3, null)));
-        Node ans = reverseList(head);
-        System.out.println("linked list");
-        while (ans != null) {
-            System.out.println(ans.value);
-            ans = ans.next;
-        }
+        // Node head = new Node(1, new Node(2, new Node(3, null)));
+        // Node ans = reverseList(head);
+        // System.out.println("linked list");
+        // while (ans != null) {
+        //     System.out.println(ans.value);
+        //     ans = ans.next;
+        // }
+        List<Integer> linkedList = new LinkedList<>();
+        linkedList.add(2);
+        linkedList.add(3);
+        linkedList.remove(0);
+        System.out.println(linkedList);
 
     }
 }
