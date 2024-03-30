@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+// BFS: Queue<Integer> q = new LinkedList<>(); q.add() q.poll()
 public class Search {
 
      public static class TreeNode {

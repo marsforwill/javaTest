@@ -1,8 +1,8 @@
-import java.util.Stack;
-import java.util.Scanner;
+import java.util.*;
 
 // new Stack<>(); .push .pop .peek
-public class StackFunc {
+//  Queue<String> queue = new LinkedList<>();  .add .poll .peak
+public class StackAndQueueFunc {
 
     // https://www.hackerrank.com/challenges/balanced-brackets/copy-from/363806293
     public static String isBalanced(String s) {
