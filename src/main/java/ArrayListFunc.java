@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ArrayListFunc {
     // new ArrayList<>() / .add / .get
+    // Arrays.sort() Arrays.copyOf(array,n)
 
 
   public static class TreeNode {

@@ -65,6 +65,47 @@ public class StackAndQueueFunc {
         }
     }
 
+    // calculater : Input: " 3+5/2 "Output: 5
+    public static int calculate(String s) {
+        Stack<Integer> stack = new Stack<>();
+        s = s.strip().replace(" ", "");
+        int i = 0;
+        while (i < s.length()) {
+            int cur = 0;
+            if (s.charAt(i) == '+' || s.charAt(i) == '-' || s.charAt(i) == '*' || s.charAt(i) == '/') {
+                char operator = s.charAt(i);
+                i++;
+                // get next number
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    cur = cur * 10 + Integer.parseInt(String.valueOf(s.charAt(i)));
+                    i++;
+                }
+                if (operator == '+') {
+                    stack.push(cur);
+                } else if (operator == '-') {
+                    stack.push(-cur);
+                } else if (operator == '*') {
+                    stack.push(stack.pop() * cur);
+                } else if (operator == '/') {
+                    stack.push(stack.pop() / cur);
+                }
+            } else {
+                // get first number
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    cur = cur * 10 + Integer.parseInt(String.valueOf(s.charAt(i)));
+                    i++;
+                }
+                stack.push(cur);
+            }
+        }
+        int ans = 0;
+        while (!stack.isEmpty()) {
+            ans += stack.pop();
+        }
+        return ans;
+    }
+    
+
     public static void main(String[] args) {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
         // Scanner sc = new Scanner(System.in);
@@ -79,5 +120,6 @@ public class StackAndQueueFunc {
         // }
 
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        System.out.println(calculate(" 3+5 / 2 "));
     }
 }
