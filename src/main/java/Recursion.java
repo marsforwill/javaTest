@@ -122,6 +122,41 @@ public class Recursion {
         arr[j] = temp;
     }
 
+    // backtracked 字符串匹配
+    /** https://leetcode.cn/problems/pattern-matching-lcci/description/?envType=study-plan-v2&envId=cracking-the-coding-interview
+         * 回溯遍历设置a,b的对应值，尝试每一种可能。
+         * @param s   s[0]=a对应的字符串 s[1]=b对应的字符串
+         * @param pattern 模式串 index1 模式串匹配位置
+         * @param value 匹配串（待匹配的字符串） index2 匹配串匹配位置
+         */
+        public boolean solve(String[] s,String pattern,int index1,String value,int index2){
+            if (pattern.length() == index1 && value.length() == index2){
+                return true;
+            }
+            if (index1 >= pattern.length() || index2 > value.length()){
+                return false;
+            }
+            int ab = pattern.charAt(index1) - 'a';
+            if(s[ab] == null){
+                for (int i = index2; i <= value.length(); i++) {
+                    s[ab] = value.substring(index2, i);
+                    if (!s[ab].equals(s[ab^1]) && solve(s, pattern, index1+1, value, i)){
+                        return true;
+                    }
+                }
+                // backtracked
+                s[ab] = null;
+                return false;
+            } else {
+                int end = index2 + s[ab].length();
+                if(end>value.length() || !value.substring(index2, end).equals(s[ab])){
+                    return false;
+                }
+                return solve(s, pattern, index1+1, value, end);
+            }
+        }
+
+
     public static void main(String[] args){
         List<String> ans = new ArrayList<>();
         String str = "cat";
