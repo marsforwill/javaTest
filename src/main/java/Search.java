@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 // BFS: Queue<Integer> q = new LinkedList<>(); q.add() q.poll()
 public class Search {
@@ -90,6 +87,48 @@ public class Search {
             }
         }
         return -1;
+    }
+
+    public static int[] pondSizes(int[][] land) {
+        int m = land.length;
+        int n = land[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int[] deltax = {0,0,1,-1,1,1,-1,-1};
+        int[] deltay = {1,-1,0,0,1,-1,1,-1};
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(visited[i][j] == false && land[i][j] == 0){
+                    int count = 0;
+                    Queue<Integer> q = new LinkedList<>();
+                    q.add(i*1000+j);
+                    land[i][j] = -1;
+                    while(!q.isEmpty()){
+                        Integer item = q.poll();
+                        count++;
+                        int idx = item/1000;
+                        int idy = item%1000;
+                        visited[idx][idy] = true;
+                        for (int k = 0; k < 8; k++) {
+                            int x = idx + deltax[k];
+                            int y = idy + deltay[k];
+                            if (x >= 0 && x < m && y >=0 && y < n && visited[x][y] == false && land[x][y] == 0){
+                                land[x][y] = -1;
+                                q.add(x*1000+y);
+                            }
+                        }
+
+                    }
+                    ans.add(count);
+                }
+            }
+        }
+        int[] output = new int[ans.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = ans.get(i);
+        }
+        Arrays.sort(output);
+        return output;
     }
 
     public static void main(String[] args){
