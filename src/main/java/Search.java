@@ -108,12 +108,13 @@ public class Search {
                         count++;
                         int idx = item/1000;
                         int idy = item%1000;
-                        visited[idx][idy] = true;
                         for (int k = 0; k < 8; k++) {
                             int x = idx + deltax[k];
                             int y = idy + deltay[k];
                             if (x >= 0 && x < m && y >=0 && y < n && visited[x][y] == false && land[x][y] == 0){
+                                // 入队前标记
                                 land[x][y] = -1;
+                                visited[x][y] = true;
                                 q.add(x*1000+y);
                             }
                         }
