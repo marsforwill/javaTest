@@ -275,10 +275,43 @@ public class Main {
         return ans;
     }
 
+    // 求无重复字符的最长连续字串长度
+    public static int deal(String str){
+        int left = 0;
+        int right = 0;
+        int n = str.length();
+        Set<Character> s = new HashSet();
+        int ans = 0;
+        while(left < n && right < n){
+            if (s.contains(str.charAt(right))){
+                int i = 0;
+                for(i = left; str.charAt(left) != str.charAt(right) && i < n; i++){
+                    s.remove(str.charAt(i));
+                    left++;
+                    System.out.println(s);
+                    System.out.println("---" + left + "---" + right);
+                }
+                left = i+1;
+                right++;
+                System.out.println(s);
+            } else {
+                s.add(str.charAt(right));
+                if (s.size() > ans){
+                    ans = s.size();
+                }
+                right++;
+                System.out.println(s);
+            }
+        }     
+        return ans;
+    }
+
     public static void main(String[] args) {
-        System.out.println("hello");
-        System.out.println("test online editor");
+//        System.out.println("hello");
+//        System.out.println("test online editor");
 //        System.out.println(mostCompetitive(new int[]{71,18,52,29,55,73,24,42,66,8,80,2}, 3));
-        System.out.println(pourWater(new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1}, 5 ,5));//[1,2,3,4,3,4,3,3,3,4,3,2,1]
+//        System.out.println(pourWater(new int[]{1,2,3,4,3,2,1,2,3,4,3,2,1}, 5 ,5));//[1,2,3,4,3,4,3,3,3,4,3,2,1]
+        System.out.println("test");
+        System.out.println(deal("pwwkew"));
     }
 }
