@@ -1,7 +1,8 @@
 import java.util.*;
 
 // new Stack<>(); .push .pop .peek
-//  Queue<String> queue = new LinkedList<>();  .add .poll .peak
+// Queue<String> queue = new LinkedList<>();  .add .poll .peak
+// Deque<Integer> ops = new LinkedList<Integer>(); push pop add/remove|first/last
 public class StackAndQueueFunc {
 
     // https://www.hackerrank.com/challenges/balanced-brackets/copy-from/363806293
@@ -101,6 +102,39 @@ public class StackAndQueueFunc {
         int ans = 0;
         while (!stack.isEmpty()) {
             ans += stack.pop();
+        }
+        return ans;
+    }
+
+    // Input: s = "(1-(4+5+2)-3)+(6+8)" 加减法和括号 依旧是考察对stack的使用
+    // 每个数字的正负和两个因素相关： 数字前的符号 数字前各级括号的符号: 如-(4+5+2)
+    public static int calculator(String s){
+        int sign = 1;
+        Deque<Integer> ops = new LinkedList<Integer>();
+        // 栈顶元素用来记录对当前遍历记录 各级括号前的符号带来的影响
+        ops.push(sign);
+        int n = s.length();
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if(s.charAt(i) == ' '){
+                continue;
+            } else if (s.charAt(i) == '+'){
+                sign = ops.peek();
+            } else if (s.charAt(i) == '-'){
+                sign = -ops.peek();
+            } else if (s.charAt(i) == '('){
+                ops.push(sign);
+            } else if (s.charAt(i) == ')'){
+                ops.pop();
+            } else {
+                long num = 0;
+                while (i < s.length() && Character.isDigit(s.charAt(i))) {
+                    num = num * 10 + Integer.parseInt(String.valueOf(s.charAt(i)));
+                    i++;
+                }
+                i--;
+                ans += num * sign;
+            }  
         }
         return ans;
     }
