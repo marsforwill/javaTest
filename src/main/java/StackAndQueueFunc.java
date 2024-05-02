@@ -108,6 +108,7 @@ public class StackAndQueueFunc {
 
     // Input: s = "(1-(4+5+2)-3)+(6+8)" 加减法和括号 依旧是考察对stack的使用
     // 每个数字的正负和两个因素相关： 数字前的符号 数字前各级括号的符号: 如-(4+5+2)
+    // 别的stack存值 这个stack存sign
     public static int calculator(String s){
         int sign = 1;
         Deque<Integer> ops = new LinkedList<Integer>();
