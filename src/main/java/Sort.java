@@ -1,6 +1,7 @@
 import java.util.*;
 
-// Arrays.sort() , Collections.sort()
+// Arrays.sort() , Collections.sort() ，可重写比较函数  Collections.sort(x, (a, b) -> Integer.compare(b, a));
+// 
 public class Sort {
 
     // 269 火星词典 拓扑排序
@@ -131,13 +132,49 @@ public class Sort {
         return count;
     }
 
+    // https://leetcode.cn/problems/rank-teams-by-votes/
+    public static String rankTeams(String[] votes) {
+        // dw[i][j] 表示 第i个字母在j位置上的计数
+        int[][] dw = new int[27][27];
+        for(String str : votes){
+            for(int i = 0; i < str.length(); i++){
+                dw[str.charAt(i) - 'A'][i]++;
+                dw[str.charAt(i) - 'A'][26] = 26 - (str.charAt(i) - 'A');
+            }
+        }
+        // 重写比较函数
+        Arrays.sort(dw, (a,b) -> {
+            for (int i = 0; i < 27; i++) {
+                if (a[i] != b[i]){
+                    return Integer.compare(b[i], a[i]);
+                }
+            }
+            return 0;
+        });
+        for (int i = 0; i < dw.length; i++) {
+            for (int j = 0; j < dw[i].length; j++) {
+                System.out.print(dw[i][j] + " ");
+            }
+            System.out.println();
+        }
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < dw.length; i++) {
+            if(dw[i][26] != 0){
+                int del = (26 - dw[i][26]);
+                Character temp = (char)('A' + del); // 数字转字符可强转
+                ans.append(temp);
+            }
+        }
+        return ans.toString();
+    }
+
     public static void main(String[] args) {
         // System.out.println(alienOrder(new String[]{"wrt", "wrtkj" }));
-        int[] nums = new int[] { 2, 9, 3, 7, 6 };
-        quicksort(nums, 0, 4);
-        for (int i : nums) {
-            System.out.println(i);
-        }
+        // int[] nums = new int[] { 2, 9, 3, 7, 6 };
+        // quicksort(nums, 0, 4);
+        // for (int i : nums) {
+        //     System.out.println(i);
+        // }
 
         List<Item> items = new ArrayList<Item>();
         items.add(new Item(3, 6));
@@ -147,6 +184,7 @@ public class Sort {
         for (int i = 0; i < items.size(); i++) {
             System.out.println(items.get(i).start); // 2,3,5
         }
+        System.out.println(rankTeams(new String[]{"ABC","ACB","ABC","ACB","ACB"}));
     }
 }
 
