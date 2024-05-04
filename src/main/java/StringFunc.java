@@ -104,12 +104,62 @@ public class StringFunc {
         return -1;
     }
 
+    // https://leetcode.cn/problems/text-justification/ 琐碎繁杂的字符串处理计算
+    public static List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> ans = new ArrayList();
+        for (int i = 0; i < words.length; i++) {
+          int count = words[i].length();
+          int j = i+1;
+          while(j<words.length && count + words[j].length() + 1 <= maxWidth){
+            count += words[j].length() + 1;
+            j++;
+          }
+          j--;
+          // 变量迭代 每一行取数组里面[i:j]
+          StringBuilder line = new StringBuilder();
+          System.out.println("i:" + i + "j:" + j);
+          if(j < words.length - 1){ // 最后一行规则不同
+            int space = maxWidth - count;
+            if (j == i){ // 只有一个单词的edge case
+                line.append(words[i]);
+                line.append(" ".repeat(maxWidth - words[i].length()));
+            } else {
+                int avg = space/(j-i);
+                int extra = space%(j-i);
+                for (int k = i; k <= j; k++) {
+                    line.append(words[k]);
+                    if(k != j){ // 最后一个单词无空格
+                        if (k < i + extra){
+                            line.append(" ".repeat(avg+2));
+                        } else {
+                            line.append(" ".repeat(avg+1));
+                        }
+                    }
+                }
+            }
+          } else {
+            for (int k = i; k < words.length; k++) {
+              line.append(words[k]);
+              if(k != words.length -1){
+                 line.append(" ");
+              }
+            }
+            line.append(" ".repeat(maxWidth - line.length()));
+          }
+          System.out.println(line.toString());
+          ans.add(line.toString());
+          i = j;
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 //        System.out.println("atty");
 //        int[] ans = getNext("ababc");
 //        for (int i = 0; i < ans.length; i++) {
 //            System.out.print(ans[i] + " ");
 //        }
-        System.out.println(strStr("hello","ll"));
+        // System.out.println(strStr("hello","ll"));
+        System.out.println(fullJustify(new String[]{"This", "is", "an", "example", "of", "text", "justification."}, 16));
     }
 }
