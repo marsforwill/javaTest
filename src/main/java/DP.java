@@ -118,6 +118,28 @@ public class DP {
     }
 
 
+    // 最长公共连续子串 https://leetcode.cn/problems/maximum-length-of-repeated-subarray/
+    public static int findLength(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        // dp[i][j] : max length : end with i in nums1, end with j in nums2 
+        int[][] dp = new int[m][n];    
+        // dp[i][j] = (dp[i-1][j-1])
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(nums1[i] == nums2[j]){
+                    dp[i][j] = 1;
+                }
+                if(i - 1 >= 0 && j - 1 >= 0 && dp[i][j] >= 1){
+                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j-1] + 1);
+                }
+                ans = Math.max(dp[i][j], ans);
+            }
+        }
+    
+        return ans;
+    }
 
     public static void main(String[] args) {
 //        System.out.println(superEggDrop2(8,2000));
