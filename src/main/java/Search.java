@@ -132,6 +132,41 @@ public class Search {
         return output;
     }
 
+    // DFS https://leetcode.cn/problems/word-search/
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(DFSExitst(i, j, board, visited, word, 0)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean DFSExitst(int x, int y, char[][] board, boolean[][] visited, String word, int idx){
+        if(idx >= word.length()){
+            return true;
+        }
+        int[] dx = new int[]{1,-1,0,0};
+        int[] dy = new int[]{0,0,1,-1};
+        if(x >= 0 && x < board.length && y >= 0 && y < board[0].length && board[x][y] == word.charAt(idx) && visited[x][y] == false){
+            visited[x][y] = true;
+            for(int i = 0; i < 4; i++){
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(DFSExitst(nx, ny, board, visited, word, idx+1) == true){
+                    return true;
+                }
+            }
+            visited[x][y] = false;
+        }
+        return false;
+    }
+
     public static void main(String[] args){
         System.out.println("hello");
         int[] arr = {1, 2, 3, 4, 5};
