@@ -1,5 +1,9 @@
 import java.util.*;
 
+// StringBuilder sb = new StringBuilder();
+// str.toCharArray() str.split()
+// Character.isDigit(c) 
+// String.join() Integer.parseInt(String.valueOf(cha))
 public class StringFunc {
 
     class Node {
@@ -35,6 +39,7 @@ public class StringFunc {
     public static String isValid(String s) {
     // Write your code here
         char[] sc = s.toCharArray();
+        String str = "";
         int[] f = new int[26];
         for(char c : sc){
             f[c-'a']++;

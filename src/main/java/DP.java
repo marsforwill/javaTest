@@ -9,6 +9,7 @@ public class DP {
         for (int i = 0; i <= N; i++) {
             Arrays.fill(dp[i],i);
         }
+        
         dp[1][0] = 0;
 
         for (int i = 2; i <= N; i++) {

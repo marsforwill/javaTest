@@ -1,7 +1,7 @@
 import java.util.*;
 
 // new Stack<>(); .push .pop .peek
-// Queue<String> queue = new LinkedList<>();  .add .poll .peak
+// Queue<String> queue = new LinkedList<>();  .add .poll .peek
 // Deque<Integer> ops = new LinkedList<Integer>(); push pop add/remove|first/last
 public class StackAndQueueFunc {
 
