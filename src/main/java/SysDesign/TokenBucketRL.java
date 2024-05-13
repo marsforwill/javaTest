@@ -1,4 +1,4 @@
-package RL;
+package SysDesign;
 
 public class TokenBucketRL {
     private final long bucketSize;

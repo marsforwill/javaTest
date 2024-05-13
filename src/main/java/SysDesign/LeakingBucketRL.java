@@ -1,4 +1,4 @@
-package RL;
+package SysDesign;
 
 public class LeakingBucketRL {
     private final long bucketSize;
