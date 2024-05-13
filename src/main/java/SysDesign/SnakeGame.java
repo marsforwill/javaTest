@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
-// leetcode 353
+// leetcode 353. Design Snake Game
 /**
  * Explanation
 SnakeGame snakeGame = new SnakeGame(3, 2, [[1, 2], [0, 1]]);
@@ -23,6 +23,7 @@ public class SnakeGame {
     private int[][] food;
     private int foodIndex;
     private int count;
+    // key point is use this Deque to store snake
     private Deque<Pair<Integer, Integer>> snake = new LinkedList<>();
     public SnakeGame(int width, int height, int[][] food){
         m = new int[height][width];
@@ -46,8 +47,8 @@ public class SnakeGame {
         } else if (direction == "U"){
             x--;
         }
-        System.out.println(head);
-        System.out.println(snake);
+        // System.out.println(head);
+        // System.out.println(snake);
 
         if(x < 0 || y < 0 || x >= m.length || y >= m[0].length){
             return -1;
