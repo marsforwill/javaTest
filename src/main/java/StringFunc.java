@@ -39,7 +39,6 @@ public class StringFunc {
     public static String isValid(String s) {
     // Write your code here
         char[] sc = s.toCharArray();
-        String str = "";
         int[] f = new int[26];
         for(char c : sc){
             f[c-'a']++;
@@ -111,7 +110,7 @@ public class StringFunc {
 
     // https://leetcode.cn/problems/text-justification/ 琐碎繁杂的字符串处理计算
     public static List<String> fullJustify(String[] words, int maxWidth) {
-        List<String> ans = new ArrayList();
+        List<String> ans = new ArrayList<>();
         for (int i = 0; i < words.length; i++) {
           int count = words[i].length();
           int j = i+1;

@@ -280,7 +280,7 @@ public class Main {
         int left = 0;
         int right = 0;
         int n = str.length();
-        Set<Character> s = new HashSet();
+        Set<Character> s = new HashSet<Character>();
         int ans = 0;
         while(left < n && right < n){
             if (s.contains(str.charAt(right))){
