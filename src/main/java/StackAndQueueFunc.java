@@ -40,7 +40,6 @@ public class StackAndQueueFunc {
         Stack <Integer> stk1 = new Stack <Integer> ();
         Stack <Integer> stk2 = new Stack <Integer> ();
         Scanner in = new Scanner(System.in);
-        int length;
         int n = in.nextInt();
         for (int i = 0; i < n; i++) {
             int query = in.nextInt();
@@ -64,6 +63,7 @@ public class StackAndQueueFunc {
                 System.out.println(stk2.peek());
             }
         }
+        in.close();
     }
 
     // calculater : Input: " 3+5/2 "Output: 5

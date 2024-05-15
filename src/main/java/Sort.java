@@ -108,7 +108,6 @@ public class Sort {
         Collections.sort(x);
         int n = x.size();
         int count = 0;
-        boolean[] isTran = new boolean[n];
         for (int i = 0; i < x.size();) {
             int j = i;
             for (j = i; j < n; j++) {

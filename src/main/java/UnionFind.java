@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class UnionFind {
     int[] parent;
     int[] rank;
