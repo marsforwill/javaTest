@@ -16,13 +16,14 @@ public class File_System {
 
     public boolean createPath(String path, int value){
         // judge if path valid
+        if (pathValue.containsKey(path)){
+            return false;
+        }
         int idx = path.lastIndexOf("/");
         if (idx >= 0 && pathValue.containsKey(path.substring(0, idx))){
             pathValue.put(path, value);
             return true;
         }
-
-        // if valid save value
         return false;
     }
 
