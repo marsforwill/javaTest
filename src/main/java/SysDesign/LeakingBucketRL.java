@@ -1,6 +1,6 @@
 package SysDesign;
 
-public class LeakingBucketRL {
+public class LeakingBucketRL implements RateLimiterInterface {
     private final long bucketSize;
     private final long consumeRate;
     private long curWater = 0;
@@ -11,6 +11,7 @@ public class LeakingBucketRL {
         this.consumeRate = consumeRate;
     }
 
+    @Override
     public boolean tryAcquire(){
         long now = System.currentTimeMillis();
 

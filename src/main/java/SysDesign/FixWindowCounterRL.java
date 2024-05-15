@@ -1,7 +1,10 @@
 package SysDesign;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.*;;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import java.util.*;
 
 public class FixWindowCounterRL {
     
@@ -10,11 +13,11 @@ public class FixWindowCounterRL {
 
     private final long maxWindowSize;
 
-    private Map<String, AtomicInteger> counterMap;
+    private Map<String, Pair<AtomicInteger, Long>> counterMap;
 
     // private AtomicInteger counter = new AtomicInteger();
 
-    private long windowStartTimestamp = System.currentTimeMillis();
+    // private long windowStartTimestamp = System.currentTimeMillis();
 
     public FixWindowCounterRL(long intervalWindow, long maxWindowSize){
         this.intervalWindow = intervalWindow;
@@ -22,19 +25,17 @@ public class FixWindowCounterRL {
         counterMap = new HashMap<>();
     }
 
-    public boolean tryAcquire(String key) {
+    public boolean acquire(String key) {
         long now = System.currentTimeMillis();
-        AtomicInteger counter = counterMap.get(key);
-        if (now > windowStartTimestamp + intervalWindow){
-            windowStartTimestamp = now;
-            counter = new AtomicInteger(1);
-            counterMap.put(key, counter);
+        Pair<AtomicInteger, Long> value = counterMap.get(key);
+        if (now > value.getRight() + intervalWindow){
+            Pair<AtomicInteger, Long> newValue =  new ImmutablePair<AtomicInteger, Long>(new AtomicInteger(1), System.currentTimeMillis());
+            counterMap.put(key, newValue);
             return true;
         } 
 
-        if (counter.get() < maxWindowSize){
-            counter.incrementAndGet();
-            counterMap.put(key, counter);
+        if (value.getLeft().get() < maxWindowSize){
+            value.getLeft().incrementAndGet();
             return true;
         }
         return false;
@@ -42,9 +43,9 @@ public class FixWindowCounterRL {
 
     public boolean tryAcquireByKey(String key){
         if (counterMap.containsKey(key)){
-            return tryAcquire(key);
+            return acquire(key);
         } else {
-            counterMap.put(key, new AtomicInteger(1));
+            counterMap.put(key, new ImmutablePair<AtomicInteger, Long>(new AtomicInteger(1), System.currentTimeMillis()));
             return true;
         }
     }
