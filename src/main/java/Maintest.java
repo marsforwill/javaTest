@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class Maintest {
 
     public static int[] mostCompetitive(int[] nums, int k) {
         Stack<Integer> s = new Stack<Integer>();
